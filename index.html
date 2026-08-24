@@ -16,13 +16,13 @@
 <section id="game" class="game hidden"><div class="hud"><span id="levelLabel"></span><span id="counter"></span></div><div class="progress"><div class="bar" id="bar"></div></div><div class="photo-card"><div class="photo-wrap"><img id="pic" alt="Загадка"></div></div><div class="question">КТО ЭТО?</div><div class="answer" id="answer"><div class="answer-label">ПРАВИЛЬНЫЙ ОТВЕТ</div><div class="answer-name" id="answerName"></div></div><div id="revealActions" class="actions"><button class="btn primary wide" id="show">ПОКАЗАТЬ ОТВЕТ</button></div><div id="resultActions" class="actions hidden"><button class="btn good" id="correct">✅ УГАДАЛ</button><button class="btn bad" id="wrong">❌ НЕ УГАДАЛ</button></div></section>
 <section id="result" class="result hidden">
 <div id="celebration" class="celebration" aria-hidden="true"></div>
-<div class="eyebrow">🎉 ФИНАЛ 🎉</div>
+<div class="eyebrow" id="resultEyebrow">🎉 ФИНАЛ 🎉</div>
 <div class="big" id="finalScore"></div>
 <h2 id="resultTitle"></h2>
 <div class="stats"><div class="stat"><b id="correctCount">0</b><small>угадано</small></div><div class="stat"><b id="wrongCount">0</b><small>не угадано</small></div></div>
 <p id="resultText"></p>
-<!-- Изначально добавляем класс hidden прямо сюда, чтобы блок был скрыт везде, кроме финала -->
-<div id="birthdayBlock" class="birthday hidden">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>
+<!-- Контейнер для динамического поздравления -->
+<div id="dynamicBirthday"></div>
 <button class="btn primary wide" id="again">ИГРАТЬ ЕЩЁ →</button>
 </section>
 </main></div>
@@ -67,13 +67,18 @@ $("correctCount").textContent=correct;$("wrongCount").textContent=wrong;
 $("resultTitle").textContent=level.final?"ФИНАЛЬНЫЙ РАУНД ЗАВЕРШЁН! 🎉":(correct===deck.length?"Идеально! 😎":correct>=Math.ceil(deck.length*.7)?"Очень достойно! 🔥":"Нужно ещё потренироваться 😄");
 $("resultText").textContent="Уровень: "+level.label+". Угадано "+correct+" из "+deck.length+".";
 
-// Управляем отображением блока поздравления в зависимости от уровня
+// Очищаем блок поздравления и конфетти перед заполнением
+const bBox = $("dynamicBirthday");
+bBox.innerHTML = "";
+$("celebration").innerHTML = "";
+
+// Если это финальный уровень — рисуем поздравление и конфетти
 if(level.final) {
-  $("birthdayBlock").classList.remove("hidden");
+  $("resultEyebrow").textContent = "🎉 ФИНАЛ 🎉";
+  bBox.innerHTML = `<div class="birthday">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>`;
   celebrate();
 } else {
-  $("birthdayBlock").classList.add("hidden");
-  $("celebration").innerHTML = ""; // Очищаем анимацию конфетти на легком/среднем уровнях
+  $("resultEyebrow").textContent = "РЕЗУЛЬТАТ УРОВНЯ";
 }
 }
 
