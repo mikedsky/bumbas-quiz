@@ -21,7 +21,8 @@
 <h2 id="resultTitle"></h2>
 <div class="stats"><div class="stat"><b id="correctCount">0</b><small>угадано</small></div><div class="stat"><b id="wrongCount">0</b><small>не угадано</small></div></div>
 <p id="resultText"></p>
-<div class="birthday">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>
+<!-- Добавили id="birthdayBlock" для управления отображением -->
+<div id="birthdayBlock" class="birthday">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>
 <button class="btn primary wide" id="again">ИГРАТЬ ЕЩЁ →</button>
 </section>
 </main></div>
@@ -35,16 +36,9 @@ hard:{label:"🔴 Финал",points:3,final:true,ids:[16,17,18,19]}
 };
 let deck=[],i=0,points=0,correct=0,wrong=0,level;const $=x=>document.getElementById(x);function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
 
-// Создаем элемент аудио (замените "music.mp3" на реальное имя вашего файла в папке проекта)
-const bgMusic = new Audio("birthday.mp3");
-
 function start(l){
   level=cfg[l]; points=correct=wrong=i=0;
   
-  // Останавливаем музыку, если она играла с прошлой игры
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
-
   if(level.final) {
     let firstThree = shuffle(level.ids.slice(0, 3));
     let lastOne = [level.ids[3]];
@@ -73,22 +67,20 @@ $("correctCount").textContent=correct;$("wrongCount").textContent=wrong;
 $("resultTitle").textContent=level.final?"ФИНАЛЬНЫЙ РАУНД ЗАВЕРШЁН! 🎉":(correct===deck.length?"Идеально! 😎":correct>=Math.ceil(deck.length*.7)?"Очень достойно! 🔥":"Нужно ещё потренироваться 😄");
 $("resultText").textContent="Уровень: "+level.label+". Угадано "+correct+" из "+deck.length+".";
 
-// Если это был финальный уровень (hard), запускаем музыку с 52-й секунды
+// Показываем блок поздравления ТОЛЬКО если это финальный уровень (hard)
 if(level.final) {
-  bgMusic.currentTime = 52;
-  bgMusic.play().catch(e => console.log("Автозапуск аудио заблокирован браузером:", e));
+  $("birthdayBlock").classList.remove("hidden");
+  celebrate();
+} else {
+  $("birthdayBlock").classList.add("hidden");
+  // Если нужно, чтобы конфетти было только на финале, можно перенести celebrate внутрь if, 
+  // но сейчас конфетти запускается только в блоке финала.
 }
 
-celebrate();
+if(level.final) celebrate();
 }
 
-$("again").onclick=()=>{
-  bgMusic.pause();
-  bgMusic.currentTime = 0;
-  $("result").classList.add("hidden");
-  $("intro").classList.remove("hidden");
-  $("topScore").textContent="";
-};
+$("again").onclick=()=>{$("result").classList.add("hidden");$("intro").classList.remove("hidden");$("topScore").textContent=""};
 
 function celebrate(){
 const box=$("celebration"); box.innerHTML="";
@@ -102,4 +94,4 @@ else{e.style.setProperty("--dx",(Math.random()*120-60)+"px");e.style.setProperty
 box.appendChild(e);
 }
 }
-</script>
+</script></body></html>
