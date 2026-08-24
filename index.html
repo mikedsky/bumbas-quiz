@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f4f1e8"><title>Шлакоблокунь — угадай всех</title>
 <style>
-:root{--paper:#f4f1e8;--ink:#171717;--muted:#74716b;--accent:#e8b923;--card:#fffdf7;--line:#ded9cd;--good:#258a50;--bad:#b63b3b}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}body{background-image:radial-gradient(#00000009 1px,transparent 1px);background-size:12px 12px}.app{min-height:100vh;padding:16px}.top,.screen{width:100%;max-width:640px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.logo{font-weight:1000;font-size:18px}.score{font-weight:950;color:#9a7710}.hidden{display:none!important}.intro{text-align:center;padding:30px 10px}.eyebrow{font-size:11px;letter-spacing:2.5px;font-weight:900;color:#9a7710}.title{font-size:clamp(42px,13vw,72px);line-height:.86;letter-spacing:-4px;font-weight:1000;margin:13px 0 20px}.subtitle{font-size:16px;line-height:1.45;color:var(--muted);max-width:390px;margin:auto}.difficulty{display:grid;gap:10px;margin-top:24px}.level{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:16px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center}.level strong{display:block;font-size:18px}.level span{color:var(--muted);font-size:13px}.points{font-weight:950;font-size:18px}.game{display:flex;flex-direction:column;gap:12px}.hud{display:flex;justify-content:space-between;font-size:13px;font-weight:850;color:var(--muted)}.progress{height:6px;background:#dfdacd;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--accent);width:0;transition:.25s}.photo-card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:10px;box-shadow:0 12px 40px #00000012}.photo-wrap{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:18px;overflow:hidden}.photo-wrap img{width:100%;height:100%;object-fit:contain}.question{text-align:center;font-size:14px;color:var(--muted);font-weight:850}.answer{background:var(--ink);color:#fff;border-radius:20px;padding:17px;text-align:center;display:none}.answer.show{display:block}.answer-label{font-size:10px;letter-spacing:2px;color:#bdbdbd;font-weight:900}.answer-name{font-size:clamp(28px,8vw,46px);font-weight:1000;margin-top:4px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.btn{border:0;border-radius:18px;padding:16px 12px;font-weight:950;font-size:14px;cursor:pointer;min-height:56px}.primary{background:var(--ink);color:#fff}.secondary{background:#fff;border:1px solid var(--line)}.good{background:var(--good);color:#fff}.bad{background:var(--bad);color:#fff}.wide{grid-column:1/-1}.result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:34px 20px}.result .big{font-size:72px;font-weight:1000}.result h2{font-size:28px;margin:10px 0}.result p{color:var(--muted);line-height:1.45}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.stat{background:#f0ece2;border-radius:18px;padding:14px}.stat b{font-size:25px}.stat small{display:block;color:var(--muted);margin-top:3px}
+:root{--paper:#f4f1e8;--ink:#171717;--muted:#74716b;--accent:#e8b923;--card:#fffdf7;--line:#ded9cd;--good:#258a50;--bad:#b63b3b}*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--paper);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}body{background-image:radial-gradient(#00000009 1px,transparent 1px);background-size:12px 12px}.app{min-height:100vh;padding:16px}.top,.screen{width:100%;max-width:640px;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.logo{font-weight:1000;font-size:18px}.score{font-weight:950;color:#9a7710}.hidden{display:none!important}.intro{text-align:center;padding:30px 10px}.eyebrow{font-size:11px;letter-spacing:2.5px;font-weight:900;color:#9a7710}.title{font-size:clamp(42px,13vw,72px);line-height:.86;letter-spacing:-4px;font-weight:1000;margin:13px 0 20px}.subtitle{font-size:16px;line-height:1.45;color:var(--muted);max-width:390px;margin:auto}.difficulty{display:grid;gap:10px;margin-top:24px}.level{border:1px solid var(--line);background:var(--card);border-radius:20px;padding:16px;text-align:left;cursor:pointer;display:flex;justify-content:space-between;align-items:center}.level strong{display:block;font-size:18px}.level span{color:var(--muted);font-size:13px}.points{font-weight:950;font-size:18px}.game{display:flex;flex-direction:column;gap:12px}.hud{display:flex;justify-content:space-between;font-size:13px;font-weight:850;color:var(--muted)}.progress{height:6px;background:#dfdacd;border-radius:20px;overflow:hidden}.bar{height:100%;background:var(--accent);width:0;transition:.25s}.photo-card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:10px;box-shadow:0 12px 40px #00000012;transition:background-color .3s, border-color .3s}.photo-card.flash-good{background:#e3f9ed!important;border-color:var(--good)!important}.photo-card.flash-bad{background:#fde8e8!important;border-color:var(--bad)!important}.photo-wrap{width:100%;aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:18px;overflow:hidden}.photo-wrap img{width:100%;height:100%;object-fit:contain}.question{text-align:center;font-size:14px;color:var(--muted);font-weight:850}.answer{background:var(--ink);color:#fff;border-radius:20px;padding:17px;text-align:center;display:none}.answer.show{display:block}.answer-label{font-size:10px;letter-spacing:2px;color:#bdbdbd;font-weight:900}.answer-name{font-size:clamp(28px,8vw,46px);font-weight:1000;margin-top:4px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.btn{border:0;border-radius:18px;padding:16px 12px;font-weight:950;font-size:14px;cursor:pointer;min-height:56px}.primary{background:var(--ink);color:#fff}.secondary{background:#fff;border:1px solid var(--line)}.good{background:var(--good);color:#fff}.bad{background:var(--bad);color:#fff}.wide{grid-column:1/-1}.result{text-align:center;background:var(--card);border:1px solid var(--line);border-radius:26px;padding:34px 20px}.result .big{font-size:72px;font-weight:1000}.result h2{font-size:28px;margin:10px 0}.result p{color:var(--muted);line-height:1.45}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:20px 0}.stat{background:#f0ece2;border-radius:18px;padding:14px}.stat b{font-size:25px}.stat small{display:block;color:var(--muted);margin-top:3px}
 
 .celebration{position:relative;height:105px;overflow:hidden;margin:-20px -10px 8px}
 .balloon{position:absolute;bottom:-18px;width:28px;height:36px;border-radius:50% 50% 46% 46%;animation:pop 1.15s ease-out forwards}
@@ -13,7 +13,7 @@
 @keyframes boom{0%{transform:scale(.2);opacity:0}35%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.35);opacity:0}}
 </style></head><body><div class="app"><header class="top"><div class="logo">ШЛАКОБЛОКУНЬ 🎣</div><div class="score" id="topScore"></div></header><main class="screen">
 <section id="intro" class="intro"><div class="eyebrow">МЕМ-КВИЗ</div><div class="title">УГАДАЙ<br>ИХ ВСЕХ</div><div class="subtitle">Выбери сложность. Смотри на картинку. Назови персонажа — и только потом открывай ответ.</div><div class="difficulty"><button class="level" data-level="easy"><div><strong>🟢 Легко</strong><span>Очевидные персонажи</span></div><div class="points">+1</div></button><button class="level" data-level="medium"><div><strong>🟡 Средне</strong><span>Нужно немного подумать</span></div><div class="points">+2</div></button><button class="level" data-level="hard"><div><strong>🔴 Финал</strong><span>4 специальных фото · финал</span></div><div class="points">+3</div></button></div></section>
-<section id="game" class="game hidden"><div class="hud"><span id="levelLabel"></span><span id="counter"></span></div><div class="progress"><div class="bar" id="bar"></div></div><div class="photo-card"><div class="photo-wrap"><img id="pic" alt="Загадка"></div></div><div class="question">КТО ЭТО?</div><div class="answer" id="answer"><div class="answer-label">ПРАВИЛЬНЫЙ ОТВЕТ</div><div class="answer-name" id="answerName"></div></div><div id="revealActions" class="actions"><button class="btn primary wide" id="show">ПОКАЗАТЬ ОТВЕТ</button></div><div id="resultActions" class="actions hidden"><button class="btn good" id="correct">✅ УГАДАЛ</button><button class="btn bad" id="wrong">❌ НЕ УГАДАЛ</button></div></section>
+<section id="game" class="game hidden"><div class="hud"><span id="levelLabel"></span><span id="counter"></span></div><div class="progress"><div class="bar" id="bar"></div></div><div class="photo-card" id="photoCard"><div class="photo-wrap"><img id="pic" alt="Загадка"></div></div><div class="question">КТО ЭТО?</div><div class="answer" id="answer"><div class="answer-label">ПРАВИЛЬНЫЙ ОТВЕТ</div><div class="answer-name" id="answerName"></div></div><div id="revealActions" class="actions"><button class="btn primary wide" id="show">ПОКАЗАТЬ ОТВЕТ</button></div><div id="resultActions" class="actions hidden"><button class="btn good" id="correct">✅ УГАДАЛ</button><button class="btn bad" id="wrong">❌ НЕ УГАДАЛ</button></div></section>
 <section id="result" class="result hidden">
 <div id="celebration" class="celebration" aria-hidden="true"></div>
 <div class="eyebrow" id="resultEyebrow">🎉 ФИНАЛ 🎉</div>
@@ -21,7 +21,6 @@
 <h2 id="resultTitle"></h2>
 <div class="stats"><div class="stat"><b id="correctCount">0</b><small>угадано</small></div><div class="stat"><b id="wrongCount">0</b><small>не угадано</small></div></div>
 <p id="resultText"></p>
-<!-- Контейнер для динамического поздравления -->
 <div id="dynamicBirthday"></div>
 <button class="btn primary wide" id="again">ИГРАТЬ ЕЩЁ →</button>
 </section>
@@ -36,9 +35,38 @@ hard:{label:"🔴 Финал",points:3,final:true,ids:[16,17,18,19]}
 };
 let deck=[],i=0,points=0,correct=0,wrong=0,level;const $=x=>document.getElementById(x);function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
 
+// Функция синтеза звуков через Web Audio API (без внешних файлов)
+function playSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    
+    const now = ctx.currentTime;
+    if (type === 'good') {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.exponentialRampToValueAtTime(800, now + 0.15);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    } else {
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(130, now + 0.2);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      osc.start(now);
+      osc.stop(now + 0.25);
+    }
+  } catch(e) {}
+}
+
 function start(l){
   level=cfg[l]; points=correct=wrong=i=0;
-  
   if(level.final) {
     let firstThree = shuffle(level.ids.slice(0, 3));
     let lastOne = [level.ids[3]];
@@ -46,7 +74,6 @@ function start(l){
   } else {
     deck = shuffle(level.ids.map(n => all[n]));
   }
-
   $("intro").classList.add("hidden");
   $("result").classList.add("hidden");
   $("game").classList.remove("hidden");
@@ -55,10 +82,47 @@ function start(l){
   render();
 }
 
-function render(){let p=deck[i];$("counter").textContent=(i+1)+" / "+deck.length;$("bar").style.width=i/deck.length*100+"%";$("pic").src="images/"+p[1];$("answerName").textContent=p[0];$("answer").classList.remove("show");$("revealActions").classList.remove("hidden");$("resultActions").classList.add("hidden")}
-document.querySelectorAll(".level").forEach(b=>b.onclick=()=>start(b.dataset.level));$("show").onclick=()=>{$("answer").classList.add("show");$("revealActions").classList.add("hidden");$("resultActions").classList.remove("hidden")};
-function vote(ok){ok?(correct++,points+=level.points):wrong++;i++;if(i<deck.length){$("topScore").textContent="⭐ "+points;render()}else finish()}
-$("correct").onclick=()=>vote(true);$("wrong").onclick=()=>vote(false);
+function render(){
+  let p=deck[i];
+  $("counter").textContent=(i+1)+" / "+deck.length;
+  $("bar").style.width=i/deck.length*100+"%";
+  $("pic").src="images/"+p[1];
+  $("answerName").textContent=p[0];
+  $("answer").classList.remove("show");
+  $("revealActions").classList.remove("hidden");
+  $("resultActions").classList.add("hidden");
+  $("photoCard").className = "photo-card";
+}
+
+document.querySelectorAll(".level").forEach(b=>b.onclick=()=>start(b.dataset.level));
+$("show").onclick=()=>{$("answer").classList.add("show");$("revealActions").classList.add("hidden");$("resultActions").classList.remove("hidden")};
+
+function vote(ok){
+  const card = $("photoCard");
+  if(ok) {
+    correct++;
+    points += level.points;
+    card.classList.add("flash-good");
+    playSound('good');
+  } else {
+    wrong++;
+    card.classList.add("flash-bad");
+    playSound('bad');
+  }
+  
+  i++;
+  setTimeout(() => {
+    if(i < deck.length) {
+      $("topScore").textContent = "⭐ " + points;
+      render();
+    } else {
+      finish();
+    }
+  }, 350); // Небольшая задержка, чтобы анимация подсветки успела проиграться
+}
+
+$("correct").onclick=()=>vote(true);
+$("wrong").onclick=()=>vote(false);
 
 function finish(){
 $("game").classList.add("hidden");$("result").classList.remove("hidden");
@@ -67,12 +131,10 @@ $("correctCount").textContent=correct;$("wrongCount").textContent=wrong;
 $("resultTitle").textContent=level.final?"ФИНАЛЬНЫЙ РАУНД ЗАВЕРШЁН! 🎉":(correct===deck.length?"Идеально! 😎":correct>=Math.ceil(deck.length*.7)?"Очень достойно! 🔥":"Нужно ещё потренироваться 😄");
 $("resultText").textContent="Уровень: "+level.label+". Угадано "+correct+" из "+deck.length+".";
 
-// Очищаем блок поздравления и конфетти перед заполнением
 const bBox = $("dynamicBirthday");
 bBox.innerHTML = "";
 $("celebration").innerHTML = "";
 
-// Если это финальный уровень — рисуем поздравление и конфетти
 if(level.final) {
   $("resultEyebrow").textContent = "🎉 ФИНАЛ 🎉";
   bBox.innerHTML = `<div class="birthday">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>`;
