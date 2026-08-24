@@ -35,36 +35,6 @@ hard:{label:"🔴 Финал",points:3,final:true,ids:[16,17,18,19]}
 };
 let deck=[],i=0,points=0,correct=0,wrong=0,level;const $=x=>document.getElementById(x);function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
 
-// Функция синтеза звуков через Web Audio API (без внешних файлов)
-function playSound(type) {
-  try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-    
-    const now = ctx.currentTime;
-    if (type === 'good') {
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(400, now);
-      osc.frequency.exponentialRampToValueAtTime(800, now + 0.15);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
-      osc.start(now);
-      osc.stop(now + 0.25);
-    } else {
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(220, now);
-      osc.frequency.exponentialRampToValueAtTime(130, now + 0.2);
-      gain.gain.setValueAtTime(0.15, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
-      osc.start(now);
-      osc.stop(now + 0.25);
-    }
-  } catch(e) {}
-}
-
 function start(l){
   level=cfg[l]; points=correct=wrong=i=0;
   if(level.final) {
@@ -103,11 +73,9 @@ function vote(ok){
     correct++;
     points += level.points;
     card.classList.add("flash-good");
-    playSound('good');
   } else {
     wrong++;
     card.classList.add("flash-bad");
-    playSound('bad');
   }
   
   i++;
@@ -118,7 +86,7 @@ function vote(ok){
     } else {
       finish();
     }
-  }, 350); // Небольшая задержка, чтобы анимация подсветки успела проиграться
+  }, 350);
 }
 
 $("correct").onclick=()=>vote(true);
