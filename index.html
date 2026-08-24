@@ -21,8 +21,8 @@
 <h2 id="resultTitle"></h2>
 <div class="stats"><div class="stat"><b id="correctCount">0</b><small>угадано</small></div><div class="stat"><b id="wrongCount">0</b><small>не угадано</small></div></div>
 <p id="resultText"></p>
-<!-- Добавили id="birthdayBlock" для управления отображением -->
-<div id="birthdayBlock" class="birthday">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>
+<!-- Изначально добавляем класс hidden прямо сюда, чтобы блок был скрыт везде, кроме финала -->
+<div id="birthdayBlock" class="birthday hidden">Мы тебя любим, Серега!<br>С днюхой!<br>Живи, люби, мечтай, кайфуй!<br><br><small>P.S.: Срьога, СТАРИНА, lenivec483</small></div>
 <button class="btn primary wide" id="again">ИГРАТЬ ЕЩЁ →</button>
 </section>
 </main></div>
@@ -67,17 +67,14 @@ $("correctCount").textContent=correct;$("wrongCount").textContent=wrong;
 $("resultTitle").textContent=level.final?"ФИНАЛЬНЫЙ РАУНД ЗАВЕРШЁН! 🎉":(correct===deck.length?"Идеально! 😎":correct>=Math.ceil(deck.length*.7)?"Очень достойно! 🔥":"Нужно ещё потренироваться 😄");
 $("resultText").textContent="Уровень: "+level.label+". Угадано "+correct+" из "+deck.length+".";
 
-// Показываем блок поздравления ТОЛЬКО если это финальный уровень (hard)
+// Управляем отображением блока поздравления в зависимости от уровня
 if(level.final) {
   $("birthdayBlock").classList.remove("hidden");
   celebrate();
 } else {
   $("birthdayBlock").classList.add("hidden");
-  // Если нужно, чтобы конфетти было только на финале, можно перенести celebrate внутрь if, 
-  // но сейчас конфетти запускается только в блоке финала.
+  $("celebration").innerHTML = ""; // Очищаем анимацию конфетти на легком/среднем уровнях
 }
-
-if(level.final) celebrate();
 }
 
 $("again").onclick=()=>{$("result").classList.add("hidden");$("intro").classList.remove("hidden");$("topScore").textContent=""};
