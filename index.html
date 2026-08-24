@@ -34,7 +34,25 @@ medium:{label:"🟡 Средне",points:2,ids:[0,2,4,6,7,8,9,10,12,14]},
 hard:{label:"🔴 Финал",points:3,final:true,ids:[16,17,18,19]}
 };
 let deck=[],i=0,points=0,correct=0,wrong=0,level;const $=x=>document.getElementById(x);function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
-function start(l){level=cfg[l];points=correct=wrong=i=0;deck=shuffle(level.ids.map(n=>all[n]));$("intro").classList.add("hidden");$("result").classList.add("hidden");$("game").classList.remove("hidden");$("levelLabel").textContent=level.label+" · +"+level.points+" за ответ";$("topScore").textContent="⭐ 0";render()}
+
+function start(l){
+  level=cfg[l]; points=correct=wrong=i=0;
+  
+  if(level.final) {
+    // Для финала жестко фиксируем порядок с 17-го по 20-е (индексы 16, 17, 18, 19)
+    deck = level.ids.map(n => all[n]);
+  } else {
+    deck = shuffle(level.ids.map(n => all[n]));
+  }
+
+  $("intro").classList.add("hidden");
+  $("result").classList.add("hidden");
+  $("game").classList.remove("hidden");
+  $("levelLabel").textContent=level.label+" · +"+level.points+" за ответ";
+  $("topScore").textContent="⭐ 0";
+  render();
+}
+
 function render(){let p=deck[i];$("counter").textContent=(i+1)+" / "+deck.length;$("bar").style.width=i/deck.length*100+"%";$("pic").src="images/"+p[1];$("answerName").textContent=p[0];$("answer").classList.remove("show");$("revealActions").classList.remove("hidden");$("resultActions").classList.add("hidden")}
 document.querySelectorAll(".level").forEach(b=>b.onclick=()=>start(b.dataset.level));$("show").onclick=()=>{$("answer").classList.add("show");$("revealActions").classList.add("hidden");$("resultActions").classList.remove("hidden")};
 function vote(ok){ok?(correct++,points+=level.points):wrong++;i++;if(i<deck.length){$("topScore").textContent="⭐ "+points;render()}else finish()}
@@ -61,4 +79,4 @@ else{e.style.setProperty("--dx",(Math.random()*120-60)+"px");e.style.setProperty
 box.appendChild(e);
 }
 }
-</script></body></html>
+</script>
