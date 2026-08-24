@@ -35,6 +35,49 @@ hard:{label:"🔴 Финал",points:3,final:true,ids:[16,17,18,19]}
 };
 let deck=[],i=0,points=0,correct=0,wrong=0,level;const $=x=>document.getElementById(x);function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
 
+// Универсальная функция звуков через Web Audio API
+function playSound(type) {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    
+    if (type === 'good') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(400, now);
+      osc.frequency.exponentialRampToValueAtTime(800, now + 0.15);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      osc.start(now); osc.stop(now + 0.25);
+    } else if (type === 'bad') {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, now);
+      osc.frequency.exponentialRampToValueAtTime(130, now + 0.2);
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.25);
+      osc.start(now); osc.stop(now + 0.25);
+    } else if (type === 'finish') {
+      // Победное арпеджио из трех нот для экрана результатов
+      [523.25, 659.25, 783.99, 1046.50].forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain); gain.connect(ctx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + index * 0.08);
+        gain.gain.setValueAtTime(0.12, now + index * 0.08);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + index * 0.08 + 0.3);
+        osc.start(now + index * 0.08);
+        osc.stop(now + index * 0.08 + 0.3);
+      });
+    }
+  } catch(e) {}
+}
+
 function start(l){
   level=cfg[l]; points=correct=wrong=i=0;
   if(level.final) {
@@ -73,9 +116,11 @@ function vote(ok){
     correct++;
     points += level.points;
     card.classList.add("flash-good");
+    playSound('good');
   } else {
     wrong++;
     card.classList.add("flash-bad");
+    playSound('bad');
   }
   
   i++;
@@ -98,6 +143,9 @@ $("topScore").textContent="⭐ "+points;$("finalScore").textContent=points+" ⭐
 $("correctCount").textContent=correct;$("wrongCount").textContent=wrong;
 $("resultTitle").textContent=level.final?"ФИНАЛЬНЫЙ РАУНД ЗАВЕРШЁН! 🎉":(correct===deck.length?"Идеально! 😎":correct>=Math.ceil(deck.length*.7)?"Очень достойно! 🔥":"Нужно ещё потренироваться 😄");
 $("resultText").textContent="Уровень: "+level.label+". Угадано "+correct+" из "+deck.length+".";
+
+// Проигрываем приятный победный звук результатов для любого уровня
+playSound('finish');
 
 const bBox = $("dynamicBirthday");
 bBox.innerHTML = "";
